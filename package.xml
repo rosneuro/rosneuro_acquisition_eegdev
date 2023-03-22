@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rosneuro_acquisition_eegdev</name>
+  <version>1.0.0</version>
+  <description>ROSNEURO Acquisition Plugin Package for EEGDEV</description>
+  <author email="luca.tonin@dei.unipd.it">Luca Tonin</author>
+  <maintainer email="luca.tonin@dei.unipd.it">Luca Tonin</maintainer>
+
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>message_generation</depend>
+
+  <depend>rosneuro_acquisition</depend>
+  <depend>rosneuro_data</depend>
+  <depend>rosneuro_msgs</depend>
+  <exec_depend>message_runtime</exec_depend>
+	
+  <build_depend>pluginlib</build_depend>
+  <exec_depend>pluginlib</exec_depend>
+  
+  <depend>libeegdev</depend>
+
+  <export>
+	  <rosneuro_acquisition plugin="${prefix}/plugin_eegdev.xml"/>
+  </export>
+</package>
