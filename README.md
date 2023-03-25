@@ -1,6 +1,6 @@
 # ROSNeuro Acquisition EEGDEV Plugin
 
-The **EEGDEv** plugin allows to acquire neurodata from different commercial amplifiers. The plugin strongly relies on [libeegdev](https://neuro.debian.net/pkgs/libeegdev-dev.html) and [libxdffileio](https://neuro.debian.net/pkgs/libxdffileio-dev.html), two open source libraries available in neurodebian repository.
+The **EEGDEv** plugin allows to acquire neurodata from different commercial amplifiers. The plugin strongly relies on [libeegdev](https://neuro.debian.net/pkgs/libeegdev-dev.html) and [libxdffileio](https://neuro.debian.net/pkgs/libxdffileio-dev.html), two open source libraries available in neurodebian repository. The latest version of **libeegdev** is provided by the **ROS-Neuro** installation as debian package while **libxdffileio** is automatically installed from NeuroDebian repository.
 
 ## Usage
 Instructions on how to install xdffileio and eegdev are provided below. Here, we will have a look the usage of the **EEGDEV Plugin**.
@@ -38,30 +38,17 @@ To launch the rosneuro_acquisition with the EEGDEV plugin, first it is required 
   | neurosky | Neurosky device |
 
 
+## Source compilation and installation of libeegdev and libxdffileio
+If there is the necessity to compile and install libeegdev and libxdffileio from source, you should follow these guidelines.
 
-## Installing *eegdev* and *xdffileio*
-The plugin requires the installation of **libeegdev** and **libxdffileio**. The libraries can be installed from packages of from source.
+You can download the source code of the libraries from:
+- [neurorobotics-iaslab/xdffileio](https://github.com/neurorobotics-iaslab/xdffileio)
+- [neurorobotics-iaslab/eegdev](https://github.com/neurorobotics-iaslab/eegdev)
 
-### Package installation
-The debian packges are available here:
-- [libxdffileio](https://neuro.debian.net/pkgs/libxdffileio0.html)
-- [libxdffileio-dev](https://neuro.debian.net/pkgs/libxdffileio-dev.html)
-- [libeegdev](https://neuro.debian.net/pkgs/libeegdev0.html)
-- [libeegdev-dev](https://neuro.debian.net/pkgs/libeegdev-dev.html)
-- [eegdev-plugins-free](https://neuro.debian.net/pkgs/eegdev-plugins-free.html)
-
-Download the packages and run the command:
-
-```bash
-sudo dpkg -i libxdffile* libeegdev*
-```
-### Source compilation and installation
-A more updated version of the libraries is available here:
-- [rosneuro/xdffileio](https://bitbucket.org/rosneuro/xdffileio)
-- [rosneuro/eegdev](https://bitbucket.org/rosneuro/eegdev)
+### 1. Setup the system
 
 To compile the libraries you need to install the following packages: `sudo apt-get install libtool gnulib flex bison`.
-Furthermore, **libeegdev** provides support for a variety of devices and some of them has proprietary drivers. The drivers must be installed on the system to enable the support for the specific device.
+Furthermore, **libeegdev** provides support for a variety of devices and some of them has proprietary drivers. **The drivers must be installed on the system to enable the support for the specific device.**
 Before proceeding with the installation, we suggest creating a local directory in which the libraries will be saved:
 ```bash
 cd $HOME && mkdir Local
@@ -81,10 +68,10 @@ fi
 ```
 Reboot the session in order to see the modifications of the environmental variables.
 
-#### xdffileio
+### 2. Compile and install libxdffileio
 First, clone the xdffileio repository:
 ```bash
-git clone https://ltonin@bitbucket.org/rosneuro/xdffileio.git
+git clone git@github.com:neurorobotics-iaslab/xdffileio.git
 ```
 Enter in the `xdffileio` directory and run:
 ```bash
@@ -100,10 +87,10 @@ Compile and install the library:
 ```bash
 make && make install
 ```
-#### eegdev
+### 3. Compile and install libeegdev
 As before, first clone the eegdev repository:
 ```bash
-git clone https://ltonin@bitbucket.org/rosneuro/eegdev.git
+git clone git@github.com:neurorobotics-iaslab/eegdev.git
 ```
 Enter in the `eegdev` directory and run:
 ```bash
@@ -115,10 +102,15 @@ At this point, run the configure:
 ```bash
 ./configure --prefix=$HOME/Local
 ```
+**Please note** that if you want to install additional plugins you have to add --with-PLUGIN option to the configure. For instance, if we own the ANTNeuro SDK library and we want to install the eegdev plugin for ANTNeuro, we need to run the configure with the following options:
+```bash
+./configure --prefix=$HOME/Local --with-eego
+```
+Please refer to ```./configure --help``` for a list of available plugins.
+
 **At the end of the configure, a table will show the supported devices (according to the driver installed in your machine).**
 Compile and install the library:
 ```bash
 make && make install
 ```
-
 
