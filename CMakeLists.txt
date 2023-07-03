@@ -2,15 +2,14 @@ cmake_minimum_required(VERSION 2.8.3)
 project(rosneuro_acquisition_eegdev)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-set(ROSNEURO_ACQUISITION_MIN_VERSION "1.0.0")
 
 find_package(catkin REQUIRED COMPONENTS 
 			 roscpp 
 			 std_msgs
 			 pluginlib
 			 rosneuro_data
-			 rosneuro_msgs)
-find_package(rosneuro_acquisition ${ROSNEURO_ACQUISITION_MIN_VERSION} REQUIRED)
+			 rosneuro_msgs
+			 rosneuro_acquisition)
 
 find_package(PkgConfig)
 
