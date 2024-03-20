@@ -10,6 +10,7 @@
 #include <pluginlib/class_list_macros.h>
 #include <rosneuro_data/NeuroData.hpp>
 #include <rosneuro_acquisition/Device.hpp>
+#include <gtest/gtest_prod.h>
 
 #define EGD_DATA_GROUPS 3
 
@@ -141,6 +142,12 @@ class EGDDevice : public Device {
 		std::string		devext_;
 		unsigned int	samplerate_;
 		unsigned int	framerate_;
+
+        FRIEND_TEST(EGDDeviceTestSuite, DefaultConstructor);
+        FRIEND_TEST(EGDDeviceTestSuite, OpenSuccess);
+        FRIEND_TEST(EGDDeviceTestSuite, SetupReturnsTrue);
+        FRIEND_TEST(EGDDeviceTestSuite, InitDevCapabilities);
+        FRIEND_TEST(EGDDeviceTestSuite, InitEgdStructures);
 };
 
 

@@ -1,0 +1,28 @@
+BEGIN BULK
+GRID,1,,0.0,0.0,0.0
+GRID,2,,1.0,0.0,0.0
+GRID,3,,1.0,1.0,0.0
+GRID,4,,0.0,1.0,0.0
+
+C Define elements (in this case, QUAD4 elements)
+C Element ID, Node1, Node2, Node3, Node4
+C Element connectivity for a square element
+ELEMENT, 1, QUAD4, 1, 2, 3, 4
+
+C Define material properties
+MAT1, 1, 1.0E7, 0.3
+
+C Assign material to elements
+C Property ID, Element ID
+PBAR, 1, 1, 1.0, 1.0, 0.1
+
+C Define boundary conditions
+SPC, 1, 1, 0.0
+SPC, 2, 2, 0.0
+SPC, 3, 3, 0.0
+SPC, 4, 4, 0.0
+
+C Define loads (in this case, applied forces)
+FORCE, 1, 2, 1000.0, 0.0, 0.0
+
+ENDDATA

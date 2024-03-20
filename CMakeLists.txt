@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
 			 rosneuro_acquisition)
 
 find_package(PkgConfig)
+find_package(GTest REQUIRED)
 
 SET(CMAKE_BUILD_TYPE RelWithDebInfo)
 
@@ -53,7 +54,7 @@ include_directories(${catkin_INCLUDE_DIRS}
 					${rosneuro_acquisition_INCLUDE_DIRS}
 					${EEGDEV_INCLUDE_DIRS} 
 					include
-)
+					include/${PROJECT_NAME}/)
 
 add_library(${PROJECT_NAME} 
 			src/EGDDevice.cpp
@@ -68,6 +69,10 @@ target_link_libraries(${PROJECT_NAME}
 add_dependencies(${PROJECT_NAME} 
 				 ${catkin_EXPORTED_TARGETS}
 )
+
+catkin_add_gtest(test_egd_device test/test_egd_device.cpp)
+target_link_libraries(test_egd_device ${PROJECT_NAME} ${catkin_LIBRARIES} gtest gmock pthread)
+include_directories(${GTEST_INCLUDE_DIRS} gmock pthread include/${PROJECT_NAME}/)
 
 #################
 ## Executables ##

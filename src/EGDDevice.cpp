@@ -1,7 +1,7 @@
 #ifndef ROSNEURO_ACQUISITION_PLUGIN_EEGDEV_CPP
 #define ROSNEURO_ACQUISITION_PLUGIN_EEGDEV_CPP
 
-#include "rosneuro_acquisition_eegdev/EGDDevice.hpp"
+#include "EGDDevice.hpp"
 
 namespace rosneuro {
 
