@@ -70,7 +70,7 @@ add_dependencies(${PROJECT_NAME}
 				 ${catkin_EXPORTED_TARGETS}
 )
 
-catkin_add_gtest(test_egd_device test/test_egd_device.cpp)
+catkin_add_gtest(test_egd_device test/TestEgdDevice.cpp)
 target_link_libraries(test_egd_device ${PROJECT_NAME} ${catkin_LIBRARIES} gtest gmock pthread)
 include_directories(${GTEST_INCLUDE_DIRS} gmock pthread include/${PROJECT_NAME}/)
 
@@ -78,7 +78,7 @@ include_directories(${GTEST_INCLUDE_DIRS} gmock pthread include/${PROJECT_NAME}/
 ## Executables ##
 #################
 
-add_executable(test_egddevice src/test_egddevice.cpp)
+add_executable(test_egddevice example/run.cpp)
 target_link_libraries(test_egddevice rosneuro_acquisition_eegdev)
 
 #################
