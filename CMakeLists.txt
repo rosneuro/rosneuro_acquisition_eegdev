@@ -2,17 +2,17 @@ cmake_minimum_required(VERSION 2.8.3)
 project(rosneuro_acquisition_eegdev)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-set(ROSNEURO_ACQUISITION_MIN_VERSION "1.0.0")
 
 find_package(catkin REQUIRED COMPONENTS 
 			 roscpp 
 			 std_msgs
 			 pluginlib
 			 rosneuro_data
-			 rosneuro_msgs)
-find_package(rosneuro_acquisition ${ROSNEURO_ACQUISITION_MIN_VERSION} REQUIRED)
+			 rosneuro_msgs
+			 rosneuro_acquisition)
 
 find_package(PkgConfig)
+find_package(GTest REQUIRED)
 
 SET(CMAKE_BUILD_TYPE RelWithDebInfo)
 
@@ -54,7 +54,7 @@ include_directories(${catkin_INCLUDE_DIRS}
 					${rosneuro_acquisition_INCLUDE_DIRS}
 					${EEGDEV_INCLUDE_DIRS} 
 					include
-)
+					include/${PROJECT_NAME}/)
 
 add_library(${PROJECT_NAME} 
 			src/EGDDevice.cpp
@@ -70,11 +70,15 @@ add_dependencies(${PROJECT_NAME}
 				 ${catkin_EXPORTED_TARGETS}
 )
 
+catkin_add_gtest(test_egd_device test/TestEgdDevice.cpp)
+target_link_libraries(test_egd_device ${PROJECT_NAME} ${catkin_LIBRARIES} gtest gmock pthread)
+include_directories(${GTEST_INCLUDE_DIRS} gmock pthread include/${PROJECT_NAME}/)
+
 #################
 ## Executables ##
 #################
 
-add_executable(test_egddevice src/test_egddevice.cpp)
+add_executable(test_egddevice example/run.cpp)
 target_link_libraries(test_egddevice rosneuro_acquisition_eegdev)
 
 #################
